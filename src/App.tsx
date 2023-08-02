@@ -1,7 +1,17 @@
+import { useEffect } from "react";
 import { useCounterStore } from "./store/counterStore"
+import { useDataStore } from "./store/dataStore";
 
 const App = () => {
   const { counter, decreaseCounter, increaseCounter } = useCounterStore();
+  const { data, getData, clearData } = useDataStore();
+
+  useEffect(() => {
+    getData();
+
+    return () => clearData();
+  }, []);
+  
 
   return (
     <div style={{
@@ -22,9 +32,7 @@ const App = () => {
       <br/>
       <br/>
       <hr style={{color: 'white'}}/>
-      <div>
-        {JSON.stringify()}
-      </div>
+      {JSON.stringify(data)}
     </div>
   )
 }
